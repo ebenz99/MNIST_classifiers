@@ -23,11 +23,15 @@ class pipeDream:
 
 		self.compIms = {}
 		for idx in range(0,10):
-			self.compIms[idx] = np.zeros((28,28,1))
+			self.compIms[idx] = np.zeros((28,28))
 
 		for idx in range(len(self.labs)):
 			tempArr = self.compIms[self.labs[idx]]
 			self.compIms[self.labs[idx]] = np.add(tempArr,self.ims[idx])
+		for key in self.compIms:
+			print(self.compIms[key].shape)
+			plt.imshow(self.compIms[key])
+			plt.show()
 
 	def findClosestMatch(self, image):
 		oldSum = 1000000
@@ -49,12 +53,10 @@ class pipeDream:
 #turns images from batch 1 into np array of train images
 
 labs1 = train_labels
-ims1 = train_images.reshape(-1, 28, 28, 1).astype("uint8")
+ims1 = train_images.reshape(-1, 28, 28).astype("float32")
 
 labs2 = test_labels
-ims2 = test_images.reshape(-1, 28, 28, 1).astype("uint8")
-
-
+ims2 = test_images.reshape(-1, 28, 28).astype("float32")
 
 
 TrainSet = pipeDream(ims1,labs1)
@@ -67,7 +69,7 @@ numToRead = 300
 
 #runs nearest neighbor classification, compares resulting label to real label
 for num in range(0,len(labs2)):
-	print(ims2[num].shape)
+	#print(ims2[num].shape)
 	#plt.imshow(ims2[num])
 	#plt.show()
 	newLab = TrainSet.findClosestMatch(ims2[num])
