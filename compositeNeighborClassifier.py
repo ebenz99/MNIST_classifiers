@@ -30,21 +30,25 @@ class pipeDream:
 			self.compIms[self.labs[idx]] = np.add(tempArr,self.ims[idx])
 		for key in self.compIms:
 			print(self.compIms[key].shape)
-			plt.imshow(self.compIms[key])
-			plt.show()
+			self.compIms[key] = self.compIms[key] / (np.sum(self.compIms[key])) 
+			#plt.imshow(self.compIms[key])
+			#plt.show()
 
 	def findClosestMatch(self, image):
-		oldSum = 1000000
+		oldSum = 0
 		label = 10
 		bestIdx = 0
 		for x in range(0,10):
 			im = self.ims[x]
 			lab = self.labs[x]
 			newSum = np.ndarray.sum(np.multiply(im,image))
-			if newSum < oldSum:
+			if newSum > oldSum:
 				oldSum = newSum
 				label = lab
 				bestIdx = x
+		#plt.imshow(image)
+		#plt.title(label)
+		#plt.show()
 		return label
 
 
