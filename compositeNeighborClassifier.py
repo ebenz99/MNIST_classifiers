@@ -66,7 +66,7 @@ TrainSet = pipeDream(ims1,labs1)
 #for procedure
 numRight = 0
 newLabels = []
-numToRead = 200
+numToRead = 1000
 
 
 
