@@ -39,16 +39,13 @@ class pipeDream:
 		label = 10
 		bestIdx = 0
 		for x in range(0,10):
-			im = self.ims[x]
-			lab = self.labs[x]
+			im = self.compIms[x]
+			lab = x
 			newSum = np.ndarray.sum(np.multiply(im,image))
 			if newSum > oldSum:
 				oldSum = newSum
 				label = lab
 				bestIdx = x
-		#plt.imshow(image)
-		#plt.title(label)
-		#plt.show()
 		return label
 
 
@@ -69,7 +66,9 @@ TrainSet = pipeDream(ims1,labs1)
 #for procedure
 numRight = 0
 newLabels = []
-numToRead = 300
+numToRead = 200
+
+
 
 #runs nearest neighbor classification, compares resulting label to real label
 for num in range(0,len(labs2)):
@@ -82,6 +81,7 @@ for num in range(0,len(labs2)):
 		numRight += 1
 	if num > numToRead:
 		break
+
 
 #displays accuracy
 accuracy = numRight / numToRead
